@@ -19,13 +19,17 @@
   <meta name="author" content="que">
   <meta name="keywords" content="">
   
-    <meta name="description" content="绪论词法分析功能：输入源程序、输出单词符号 正则文法转正则表达式： 右线性文法：   左线性文法：   FA（有限自动机）:包含DFA和NFA, DFA:   例题：   NFA:   DFA NFA区别：    正规式转DFA M">
+    <meta name="description" content="绪论  流程：词法分析  语法分析  语义分析 中间代码生成  代码优化 目标代码生成 语言和文法基础上下无关文法（2型文法）：G&#x3D;（VT,VN ,S,P） 句子：看产生式右边，只有终结符的才是 句型：看产生式右边，可以包含终结符，也可以包含非终结符，句子是句型的一种 语言：文法生成的句子的集合 *：表示&gt;&#x3D;0 +: 表示&gt;&#x3D;1 最左推导：每次对最左的非终">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编译原理期末复习">
 <meta property="og:url" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="阙">
-<meta property="og:description" content="绪论词法分析功能：输入源程序、输出单词符号 正则文法转正则表达式： 右线性文法：   左线性文法：   FA（有限自动机）:包含DFA和NFA, DFA:   例题：   NFA:   DFA NFA区别：    正规式转DFA M">
+<meta property="og:description" content="绪论  流程：词法分析  语法分析  语义分析 中间代码生成  代码优化 目标代码生成 语言和文法基础上下无关文法（2型文法）：G&#x3D;（VT,VN ,S,P） 句子：看产生式右边，只有终结符的才是 句型：看产生式右边，可以包含终结符，也可以包含非终结符，句子是句型的一种 语言：文法生成的句子的集合 *：表示&gt;&#x3D;0 +: 表示&gt;&#x3D;1 最左推导：每次对最左的非终">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/14.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/15.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/16.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/17.png">
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/8.png">
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/9.png">
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/1.png">
@@ -35,11 +39,15 @@
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/5.png">
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/6.png">
 <meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/7.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/10.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/11.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/12.png">
+<meta property="og:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/13.png">
 <meta property="article:published_time" content="2025-12-23T07:50:00.000Z">
-<meta property="article:modified_time" content="2025-12-24T10:09:25.926Z">
+<meta property="article:modified_time" content="2025-12-29T11:43:58.054Z">
 <meta property="article:author" content="que">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/8.png">
+<meta name="twitter:image" content="http://example.com/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/14.png">
   
   
   
@@ -232,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          92 字
+          518 字
         
       </span>
     
@@ -243,7 +251,7 @@
         
         
         
-          1 分钟
+          5 分钟
         
       </span>
     
@@ -285,7 +293,35 @@
             
               <div class="markdown-body">
                 
-                <h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>功能：输入源程序、输出单词符号</p>
+                <h2 id="绪论"><a href="#绪论" class="headerlink" title="绪论"></a>绪论</h2><img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/14.png" srcset="/img/loading.gif" lazyload class>
+
+<p>流程：词法分析  语法分析  语义分析 中间代码生成  代码优化 目标代码生成</p>
+<h2 id="语言和文法基础"><a href="#语言和文法基础" class="headerlink" title="语言和文法基础"></a>语言和文法基础</h2><p>上下无关文法（2型文法）：G&#x3D;（VT,VN ,S,P）</p>
+<p>句子：看产生式右边，只有终结符的才是</p>
+<p>句型：看产生式右边，可以包含终结符，也可以包含非终结符，句子是句型的一种</p>
+<p>语言：文法生成的句子的集合</p>
+<p>*：表示&gt;&#x3D;0</p>
+<p>+: 表示&gt;&#x3D;1</p>
+<p>最左推导：每次对最左的非终结符替换</p>
+<p>最右推导：每次对最右的非终结符开始替换</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/15.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+<p>短语 ：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/16.png" srcset="/img/loading.gif" lazyload class>
+
+<p>二义性：文法中某个句子对应两棵不同的语法树</p>
+<p>​                或者一个句子存在多个不同最左（最右）推导</p>
+<p>0 型: 非限制文法</p>
+<p>1 型: 上下文有关文法</p>
+<p>3 型: 正则文法</p>
+<p>闭包 ：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/17.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+<h2 id="词法分析"><a href="#词法分析" class="headerlink" title="词法分析"></a>词法分析</h2><p>功能：输入源程序、输出单词符号</p>
 <p>正则文法转正则表达式：</p>
 <p>右线性文法：</p>
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/8.png" srcset="/img/loading.gif" lazyload class>
@@ -300,18 +336,53 @@
 <p>例题：</p>
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/2.png" srcset="/img/loading.gif" lazyload class>
 
+
+
 <p>NFA:</p>
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/3.png" srcset="/img/loading.gif" lazyload class>
+
+
 
 <p>DFA NFA区别：</p>
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/4.png" srcset="/img/loading.gif" lazyload class>
 
-<p> 正规式转DFA M</p>
+
+
+<p> 正规式转DFA M </p>
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/5.png" srcset="/img/loading.gif" lazyload class>
 
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/6.png" srcset="/img/loading.gif" lazyload class>
 
 <img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/7.png" srcset="/img/loading.gif" lazyload class>
+
+<h2 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h2><p>消除左递归：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/10.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+<p>消除回溯：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/11.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+<p>First集：（看产生式左边，然后看右边第一个是否为终结符，不为继续找）</p>
+<p>FOLLOW集：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/12.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+<p>select集：</p>
+<img src="/2025/12/23/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/13.png" srcset="/img/loading.gif" lazyload class>
+
+
+
+
+
+<p>求LR(0)</p>
+<p>算符优先文法：</p>
+<p>FIRSTVT()：看产生式右边，从左往右找到第一个终结符</p>
+<p>LASTVT():  看产生式右边，从右往左找到第一个终结符</p>
+<p>后续参考（图片也来着）：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1pL4y1E7RE?vd_source=f66b50ad1e7a1efb4555b4551111a751">B站</a></p>
 
                 
               </div>
